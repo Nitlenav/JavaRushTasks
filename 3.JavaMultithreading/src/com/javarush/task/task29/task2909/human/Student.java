@@ -11,6 +11,8 @@ public class Student extends Human {
     private Date beginningOfSession;
     private Date endOfSession;
 
+    private int course;
+
     public Student(String name, int age, double averageGrade) {
         super(false);
         this.name = name;
@@ -56,6 +58,7 @@ public class Student extends Human {
         }
     }
 
+
     public void setBeginningOfSession(int day, int month, int year) {
         beginningOfSession = new Date(year, month, day);
     }
@@ -66,5 +69,9 @@ public class Student extends Human {
 
     public double getAverageGrade() {
         return averageGrade;
+    }
+
+    public int getCourse() {
+        return course;
     }
 }
