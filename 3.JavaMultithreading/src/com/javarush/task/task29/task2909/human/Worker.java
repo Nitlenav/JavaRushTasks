@@ -9,9 +9,9 @@ public class Worker {
         human = new Human(false);
     }
 
-    public void live() {
-        human.live();
-    }
+//    public void live() {
+//        human.live();
+//    }
 
     public double getSalary() {
         return salary;

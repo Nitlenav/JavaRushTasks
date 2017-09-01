@@ -11,19 +11,14 @@ public class Human {
     protected String name;
     protected int course;
 
+    private List<Human> children = new ArrayList<>();
+
     protected int[] size;
-
-
     public static final int FIRST = 1;
     public static final int SECOND = 2;
     public static final int THIRD = 3;
     public static final int FOURTH = 4;
     private int bloodGroup;
-    private List<Human> children = new ArrayList<>();
-
-    public List<Human> getChildren() {
-        return Collections.unmodifiableList(children);
-    }
 
     public void setBloodGroup(int code) {
         bloodGroup = code;
@@ -33,6 +28,22 @@ public class Human {
         return bloodGroup;
     }
 
+    public Human( String name, int age) {
+        this.name = name;
+        this.age = age;
+        this.id = nextId;
+        nextId++;
+    }
+
+    public Human(boolean isSoldier) {
+        //this.isSoldier = isSoldier;
+        this.id = nextId;
+        nextId++;
+    }
+
+    public List<Human> getChildren() {
+        return Collections.unmodifiableList(children);
+    }
 
     public int getAge() {
         return age;
@@ -54,9 +65,13 @@ public class Human {
         return course;
     }
 
+//
+//    public void fight() {
+//    }
 
-    public void fight() {
+    public void live() {
     }
+
 
     public int getId() {
         return id;
@@ -66,14 +81,12 @@ public class Human {
         this.id = id;
     }
 
-    public void removeChild(Human human) {
-        if (children.contains(human)) {
-            children.remove(human);
-        }
-    }
-
     public void addChild(Human human) {
         children.add(human);
+    }
+
+    public void removeChild (Human human){
+        if (children.contains(human)) {children.remove(human);}
     }
 
     public void printSize() {

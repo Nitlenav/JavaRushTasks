@@ -18,7 +18,6 @@ public class Student extends Human {
         this.averageGrade = averageGrade;
     }
 
-
     public void live() {
         learn();
     }
