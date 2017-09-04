@@ -7,7 +7,6 @@ import java.util.List;
 public class Student extends UniversityPerson {
 
     private double averageGrade;
-
     private Date beginningOfSession;
     private Date endOfSession;
 
@@ -24,8 +23,7 @@ public class Student extends UniversityPerson {
         learn();
     }
 
-    public void learn() {
-    }
+    public void learn() {}
 
     public void incAverageGradeBy01() {
         averageGrade += 0.1;
@@ -35,17 +33,13 @@ public class Student extends UniversityPerson {
         averageGrade += 0.2;
     }
 
-    public void setValue(String name, double value) {
-        if (name.equals("averageGrade")) {
+    public void setAverageGrade(double value) {
             averageGrade = value;
-            return;
-        }
-        if (name.equals("course")) {
-            course = (int) value;
-            return;
-        }
     }
 
+    public void setCourse( int value){
+            course = value;
+    }
 
     public void setBeginningOfSession(int day, int month, int year) {
         beginningOfSession = new Date(year, month, day);

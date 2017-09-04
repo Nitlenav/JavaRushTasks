@@ -34,22 +34,46 @@ public class University {
     }
 
     public University(String name, int age) {
-        //super(name, age, 0);
         this.name = name;
         this.age = age;
     }
 
-    public Student getStudentWithAverageGrade() {
-        //TODO:
-        return null;
+    public Student getStudentWithAverageGrade( double averageGrade ) {
+        Student student = null;
+        for (Student stud : students){
+            if (stud.getAverageGrade() == averageGrade){
+                student = stud;
+                break;
+            }
+        }
+        return student;
     }
 
-    public Student getStudentWithMaxAverageGrade(double averageGrade) {
-        //TODO:
-        return null;
+    public Student getStudentWithMaxAverageGrade() {
+        Student student = null;
+        double maxAverage = 0.0;
+        for (Student stud: students){
+            if (stud.getAverageGrade() > maxAverage){
+                maxAverage = stud.getAverageGrade();
+                student = stud;
+            }
+        }
+        return student;
     }
 
-    public void getStudentWithMinAverageGradeAndExpel() {
-        //TODO:
+    public Student getStudentWithMinAverageGrade() {
+        Student student = null;
+        double minAvetage = Double.MAX_VALUE;
+        for (Student stud : students){
+            if (stud.getAverageGrade() < minAvetage){
+                minAvetage = stud.getAverageGrade();
+                student = stud;
+            }
+        }
+        return student;
+    }
+
+    public void expel(Student student){
+        students.remove(student);
     }
 }
