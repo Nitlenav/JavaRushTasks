@@ -21,11 +21,11 @@ public class Car {
     public static Car create(int type, int numberOfPassengers){
         Car car = null;
         switch (type){
-            case TRUCK: car = new Truck(type,numberOfPassengers);
+            case TRUCK: car = new Truck(numberOfPassengers);
             break;
-            case SEDAN: car = new Sedan(type, numberOfPassengers);
+            case SEDAN: car = new Sedan(numberOfPassengers);
             break;
-            case CABRIOLET: car = new Cabriolet(type, numberOfPassengers);
+            case CABRIOLET: car = new Cabriolet(numberOfPassengers);
             break;
         }
         return car;

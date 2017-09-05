@@ -1,10 +1,10 @@
 package com.javarush.task.task29.task2909.car;
 
 public class Truck extends Car {
-    public int numberOfPassengers;
-    public Truck(int type, int numberOfPassengers) {
-        super(type, numberOfPassengers);
+    private int numberOfPassengers;
+
+    public Truck(int numberOfPassengers) {
+        super(0, numberOfPassengers);
         this.numberOfPassengers = numberOfPassengers;
     }
-
 }
