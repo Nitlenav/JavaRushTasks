@@ -11,10 +11,10 @@ public class UserHelper {
 
     public void printUsers() {
         userAnya.printInfo();
-        userAnya.printAdditionalInfo(userAnya);
+        userAnya.printAdditionalInfo();
 
         userRoma.printInfo();
-        userRoma.printAdditionalInfo(userRoma);
+        userRoma.printAdditionalInfo();
     }
 
     public int calculateAverageAge() {
@@ -22,10 +22,8 @@ public class UserHelper {
         return (userAnya.getAge() + userRoma.getAge() + userUra.getAge()) / 3;
     }
 
-    public void calculateRate(AtomicInteger base, int age, boolean hasWork, boolean hasHouse) {
-        base.set(base.get() + age / 100);
-        base.set((int) (base.get() * (hasWork ? 1.1 : 0.9)));
-        base.set((int) (base.get() * (hasHouse ? 1.1 : 0.9)));
+    public int calculateRate(AtomicInteger base, int age, boolean hasWork, boolean hasHouse) {
+        return (int) ((base.get() + age / 100) * (hasWork ? 1.1 : 0.9) * (hasHouse ? 1.1 : 0.9));
     }
 
     public String getBossName(User user) {

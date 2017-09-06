@@ -74,8 +74,8 @@ public class User {
         System.out.println("Фамилия: " + this.getSurname());
     }
 
-    public void printAdditionalInfo(User user) {
-        if (user.getAge() < 16)
+    public void printAdditionalInfo() {
+        if (getAge() < 16)
             System.out.println("Пользователь моложе 16 лет");
         else
             System.out.println("Пользователь старше 16 лет");
