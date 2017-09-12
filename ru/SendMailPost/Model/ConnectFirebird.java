@@ -1,4 +1,4 @@
-package ru.SendMailPost.Controller;
+package SendMailPost.Model;
 
 
 import java.sql.Connection;
@@ -10,7 +10,8 @@ public class ConnectFirebird {
     static final String driver = "org.firebirdsql.jdbc.FBDriver";
     private String ip = "172.16.10.33";
     private String alias = "test_db";
-    final String url = "jdbc:firebirdsql://"+ ip +"/"+ alias +"?encoding=utf8&amp";
+    private final String url = "jdbc:firebirdsql://"+ ip +"/"+ alias +"?encoding=utf8&amp";
+    //static final String url = "jdbc:firebirdsql://172.16.10.33/test_db?encoding=utf8&amp";
     static String login = "JAVA_CLIENT";
     static String passwrd = "159753";
 
@@ -22,7 +23,7 @@ public class ConnectFirebird {
 
     public ConnectFirebird(){
         try {
-            Class.forName(url).newInstance();
+            Class.forName(driver).newInstance();
             connect = DriverManager.getConnection(url, login, passwrd);
         } catch (InstantiationException e) {
             e.printStackTrace();

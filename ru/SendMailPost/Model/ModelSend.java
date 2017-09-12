@@ -1,6 +1,4 @@
-package ru.SendMailPost.Model;
-
-import ru.SendMailPost.Controller.ConnectFirebird;
+package SendMailPost.Model;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -10,11 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelSend {
+
+    private String query;
+    private Object queryData [][];
+
+    private List<Object[]> listData = new ArrayList<Object[]>();
+    private ConnectFirebird conFirebird = new ConnectFirebird();
+
+
     public String getQuery() {
         return query;
     }
 
-    public ModelSend(String query) {
+    public ModelSend(String query) throws SQLException {
         this.query = query;
     }
 
@@ -22,12 +28,10 @@ public class ModelSend {
         this.query = query;
     }
 
-
-    public Object[][] getQueryData(String query) throws SQLException {
-        List<Object[]> listData = new ArrayList<Object[]>();
-        ConnectFirebird conFirebird = new ConnectFirebird();
+    public  Object[][] getQueryData() throws SQLException {
+        //Запрос к БД передаётся черес переменную query
         Statement statement = conFirebird.getConnect().createStatement();
-        ResultSet result = statement.executeQuery(query); //Запрос к БД передаётся черес переменную query
+        ResultSet result = statement.executeQuery(query);
         ResultSetMetaData resultMetaData = result.getMetaData();
         int colCount = resultMetaData.getColumnCount();
         while (result.next()){
@@ -38,13 +42,7 @@ public class ModelSend {
             listData.add(rowData);
         }
         queryData = listData.toArray(new Object[listData.size()][colCount]);
-        //conFirebird.close();
+        conFirebird.close();
         return queryData;
     }
-
-    private String query;
-    Object queryData [][];
-
-
-
 }

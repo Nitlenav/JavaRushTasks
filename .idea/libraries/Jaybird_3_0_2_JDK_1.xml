@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Jaybird-3.0.2-JDK_1">
+    <CLASSES>
+      <root url="file://E:/Библитеки java/Jaybird-3.0.2-JDK_1.8" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://E:/Библитеки java/Jaybird-3.0.2-JDK_1.8/docs/api" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://E:/Библитеки java/Jaybird-3.0.2-JDK_1.8" />
+    </SOURCES>
+    <jarDirectory url="file://E:/Библитеки java/Jaybird-3.0.2-JDK_1.8" recursive="false" />
+    <jarDirectory url="file://E:/Библитеки java/Jaybird-3.0.2-JDK_1.8" recursive="false" type="SOURCES" />
+  </library>
+</component>

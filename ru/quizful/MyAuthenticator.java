@@ -1,4 +1,4 @@
-package ru.quizful;
+package quizful;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

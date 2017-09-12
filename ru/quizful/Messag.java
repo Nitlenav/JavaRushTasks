@@ -1,4 +1,4 @@
-package ru.quizful;
+package quizful;
 
 /**
  * Created by lav on 27.02.2017.

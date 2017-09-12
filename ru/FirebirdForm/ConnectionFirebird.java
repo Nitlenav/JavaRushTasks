@@ -1,4 +1,4 @@
-package ru.FirebirdForm;
+package FirebirdForm;
 
 /**
  * Created by lav on 28.02.2017.

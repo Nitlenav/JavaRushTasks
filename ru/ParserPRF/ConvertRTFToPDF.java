@@ -1,4 +1,4 @@
-package ru.ParserPRF;
+package ParserPRF;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.rtf.field.RtfPageNumber;

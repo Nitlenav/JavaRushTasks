@@ -1,4 +1,4 @@
-package ru.FirebirdForm;
+package FirebirdForm;
 
 public class FindCodeOrganizations extends KModel {
 

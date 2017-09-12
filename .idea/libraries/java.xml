@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="java">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/osgi/src/main/java" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/osgi/src/test/java" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/src/contrib/poi-ruby/java" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/src/examples/src" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/src/excelant/java" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/src/excelant/testcases" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/src/integrationtest" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/src/java" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/src/ooxml/java" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/src/ooxml/testcases" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/src/scratchpad/src" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/src/scratchpad/testcases" />
+      <root url="file://E:/Библитеки java/poi-src-3.16-20170419/poi-3.16/src/testcases" />
+    </SOURCES>
+  </library>
+</component>

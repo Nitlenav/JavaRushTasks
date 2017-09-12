@@ -1,4 +1,4 @@
-package ru.FirebirdForm;
+package FirebirdForm;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Vector;

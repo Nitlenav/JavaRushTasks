@@ -1,4 +1,4 @@
-package ru.quizful;
+package quizful;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;

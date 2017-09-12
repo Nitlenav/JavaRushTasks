@@ -1,4 +1,4 @@
-package ru.FirebirdForm;
+package FirebirdForm;
 
 import java.sql.*;
 import java.util.Vector;

@@ -1,7 +1,11 @@
-package ru.SendMailPost.View;
+package SendMailPost.View;
+
+import SendMailPost.Controller.Select;
+import SendMailPost.Model.ModelSend;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class FormSend extends JFrame {
 
@@ -10,35 +14,14 @@ public class FormSend extends JFrame {
     JMenu menu, newMenu;
     JMenuItem itemMenu;
     JSplitPane splitPane;
-    JPanel leftPanal = new JPanel();
-    //JPanel rightPanal = new JPanel();
-    GridBagConstraints containLeft;
-    GridBagConstraints containRight;
-
-    JTable table;
-    JScrollPane scrollPane;
-
-
-
+    LeftPanel leftPanal;
+    RightPanel rightPanel;
     JTextArea textArea;
-    JComboBox box;
-    String [] selector = {"Все", "Юридические лица", "Физические лица", "Клиенты в архиве"};
-    String [] columnName = {"Бух код", "Название клиента"};
-    Object[][] data = {
-            {new Integer(1), "Snowboarding"},
-            {new Integer(2), "John"},
-            {new Integer(3),"Sue"},
-            {new Integer(4),"Jane"},
-            {new Integer(5),"Joe"},
-            {new Integer(1), "Snowboarding"},
-            {new Integer(2), "John"},
-            {new Integer(3),"Sue"},
-            {new Integer(4),"Jane"},
-            {new Integer(5),"Joe"}
+    String [] columnName = {"CODE", "FIRM_NAME", "TODATE", "OBJECT", "NAME_OBJECTS", "EMAIL"};
 
-    };
+    Object[][] data = new ModelSend(new Select().getSelectAll()).getQueryData();
 
-    public FormSend() {
+    public FormSend() throws SQLException {
 
         super("Учебный проект");
         //setLayout(gbl);
@@ -49,7 +32,8 @@ public class FormSend extends JFrame {
         mainMenu = new JMenuBar();
         menu = new JMenu("File");
         newMenu = new JMenu("New File");
-
+        leftPanal = new LeftPanel(data, columnName);
+        rightPanel = new RightPanel(data, columnName);
         newMenu.add(new JMenuItem("add"));
         menu.add(newMenu);
         itemMenu = new JMenuItem("Close");
@@ -62,53 +46,15 @@ public class FormSend extends JFrame {
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         //splitPane.setOneTouchExpandable(true);
         //splitPane.setDividerLocation(50);
-        leftPanal.setLayout(new GridBagLayout());
-//        ((GridBagLayout)leftPanal.getLayout()).columnWidths = new int[] {40, 40, 40, 40, 40, 40, 40, 40};
-//        ((GridBagLayout)leftPanal.getLayout()).rowHeights = new int[] {0, 0, 0};
-//        ((GridBagLayout)leftPanal.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-//        ((GridBagLayout)leftPanal.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0};
-
-        containLeft = new GridBagConstraints();
         splitPane.setResizeWeight(0.5);
         splitPane.setTopComponent(leftPanal);
-
-        RightPanel rightPanel = new RightPanel(data, columnName);
-        //rightPanel.containRight.anchor = GridBagConstraints.PAGE_START;
-
         splitPane.setRightComponent(rightPanel);
         add(splitPane);
-
         textArea = new JTextArea("Произвольный текст");
-        containLeft.fill = GridBagConstraints.HORIZONTAL;
-        //containLeft.anchor = GridBagConstraints.PAGE_START;
-        containLeft.weightx = 0.5;
-        containLeft.gridx = 1;
-        containLeft.gridy = 0;
-        leftPanal.add(textArea, containLeft);
-
-        box = new JComboBox(selector);
-        containLeft.fill = GridBagConstraints.HORIZONTAL;
-        containLeft.weightx = 0.5;
-        containLeft.gridx = 3;
-        containLeft.gridy = 0;
-        leftPanal.add(box, containLeft);
-
-
-        table = new JTable(data, columnName);
-        scrollPane = new JScrollPane(table);
-        containLeft.fill = GridBagConstraints.BOTH;
-        containLeft.ipady = 0;
-        containLeft.weighty = 0.5;
-        containLeft.anchor = GridBagConstraints.PAGE_END; //bottom of space
-        containLeft.insets = new Insets(10, 0, 0, 0);  //top padding
-        containLeft.gridx = 0;
-        containLeft.gridwidth = 4;
-        containLeft.gridy = 2;
-        leftPanal.add(scrollPane, containLeft);
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         FormSend formSend = new FormSend();
         formSend.pack();
         formSend.setVisible(true);

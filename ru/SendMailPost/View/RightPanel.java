@@ -1,4 +1,4 @@
-package ru.SendMailPost.View;
+package SendMailPost.View;
 
 import javax.swing.*;
 import java.awt.*;
