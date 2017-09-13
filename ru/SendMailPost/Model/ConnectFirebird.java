@@ -5,21 +5,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectFirebird {
+public class ConnectFirebird { //класс для создания подключения к БД
 
     static final String driver = "org.firebirdsql.jdbc.FBDriver";
     private String ip = "172.16.10.33";
-    private String alias = "test_db";
+    private String alias = "Telenet";
     private final String url = "jdbc:firebirdsql://"+ ip +"/"+ alias +"?encoding=utf8&amp";
     //static final String url = "jdbc:firebirdsql://172.16.10.33/test_db?encoding=utf8&amp";
     static String login = "JAVA_CLIENT";
     static String passwrd = "159753";
 
+    private Connection connect ;
+
     public Connection getConnect() {
         return connect;
     }
-
-    private Connection connect ;
 
     public ConnectFirebird(){
         try {

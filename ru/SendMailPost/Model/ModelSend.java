@@ -7,14 +7,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelSend {
-
+public class ModelSend //Получение данных из БД
+{
     private String query;
     private Object queryData [][];
 
-    private List<Object[]> listData = new ArrayList<Object[]>();
-    private ConnectFirebird conFirebird = new ConnectFirebird();
-
+    private List<Object[]> listData;
+    private ConnectFirebird conFirebird;
 
     public String getQuery() {
         return query;
@@ -30,6 +29,8 @@ public class ModelSend {
 
     public  Object[][] getQueryData() throws SQLException {
         //Запрос к БД передаётся черес переменную query
+        listData = new ArrayList<Object[]>();
+        conFirebird = new ConnectFirebird();
         Statement statement = conFirebird.getConnect().createStatement();
         ResultSet result = statement.executeQuery(query);
         ResultSetMetaData resultMetaData = result.getMetaData();

@@ -1,26 +1,35 @@
 package SendMailPost.View;
 
-import SendMailPost.Controller.Select;
-import SendMailPost.Model.ModelSend;
+import SendMailPost.Model.SelectActiveOrganizations;
+import SendMailPost.Model.SelectAll;
 
 import javax.swing.*;
-import java.awt.*;
 import java.sql.SQLException;
 
 public class FormSend extends JFrame {
 
 
-    JMenuBar mainMenu;
-    JMenu menu, newMenu;
-    JMenuItem itemMenu;
-    JSplitPane splitPane;
-    LeftPanel leftPanal;
-    RightPanel rightPanel;
-    JTextArea textArea;
-    String [] columnName = {"CODE", "FIRM_NAME", "TODATE", "OBJECT", "NAME_OBJECTS", "EMAIL"};
+    private JMenuBar mainMenu;
+    private JMenu menu, newMenu;
+    private JMenuItem itemMenu;
+    private JSplitPane splitPane;
+    private LeftPanel leftPanal;
+    private RightPanel rightPanel;
+    private JTextArea textArea;
 
-    Object[][] data = new ModelSend(new Select().getSelectAll()).getQueryData();
+    public static class DataForForm {
+        static SelectAll selectAll= new SelectAll();
+         static String[] columnName = selectAll.getColumnNameSelectData();
+         static Object[][] data= selectAll.getSelectData();
 
+        public void setColumnName(String[] columnName) {
+            this.columnName = columnName;
+        }
+
+        public void setData(Object[][] data) {
+            this.data = data;
+        }
+    }
     public FormSend() throws SQLException {
 
         super("Учебный проект");
@@ -32,8 +41,8 @@ public class FormSend extends JFrame {
         mainMenu = new JMenuBar();
         menu = new JMenu("File");
         newMenu = new JMenu("New File");
-        leftPanal = new LeftPanel(data, columnName);
-        rightPanel = new RightPanel(data, columnName);
+        leftPanal = new LeftPanel(DataForForm.data, DataForForm.columnName);
+        rightPanel = new RightPanel(DataForForm.data, DataForForm.columnName);
         newMenu.add(new JMenuItem("add"));
         menu.add(newMenu);
         itemMenu = new JMenuItem("Close");
