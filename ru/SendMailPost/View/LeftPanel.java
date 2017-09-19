@@ -1,37 +1,51 @@
 package SendMailPost.View;
 
-import SendMailPost.Controller.FirstColumnTableModel;
-import SendMailPost.Controller.Select;
-import SendMailPost.Model.*;
+import SendMailPost.Controller.*;
 
 import javax.swing.*;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LeftPanel extends JPanel {
 
-    GridBagConstraints containLeft;
-    JTable table;
-    JScrollPane scrollPane;
-    JTextArea textArea;
-    JComboBox box;
+    private GridBagConstraints containLeft;
+    private JTable table;
+    private JScrollPane scrollPane;
+    //JTextArea textArea;
+    private TextAndArea textArea;
+    private JComboBox box;
     //ModelData modelData;
-    String [] selector = {"Все", "Юридические лица", "Физические лица","Действующие обьекты"};
+    private String [] selector = {"Все", "Юридические лица", "Физические лица","Действующие обьекты"};
 
+    public JTable getTable() {
+        return table;
+    }
 
-
-    public LeftPanel( Object[][] data, String[] columnName) {
+    public LeftPanel() {}
+    public LeftPanel(Object[][] data, String[] columnName) {
 
         //splitPane.setOneTouchExpandable(true);
         //splitPane.setDividerLocation(50);
         setLayout(new GridBagLayout());
         containLeft = new GridBagConstraints();
 
-        textArea = new JTextArea("Произвольный текст");
+        //textArea = new JTextArea("Произвольный текст");
+        textArea = new TextAndArea();
+        textArea.addCaretListener(new CaretListener() {
+            @Override
+            public void caretUpdate(CaretEvent e) {
+                String [] word = textArea.getText().split("\\W+");
+                if (word.length > 0){
+                    //TableModel model = new LeftPanel().getTable().getModel();
+                    for (String s : word){
+
+                    }
+                }
+            }
+        });
         containLeft.fill = GridBagConstraints.HORIZONTAL;
         containLeft.weightx = 0.5;
         containLeft.gridx = 1;

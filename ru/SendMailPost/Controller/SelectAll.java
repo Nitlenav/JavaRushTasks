@@ -1,4 +1,4 @@
-package SendMailPost.Model;
+package SendMailPost.Controller;
 
 import SendMailPost.Controller.Select;
 import SendMailPost.Model.ModelData;

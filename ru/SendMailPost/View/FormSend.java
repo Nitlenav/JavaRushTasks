@@ -1,7 +1,6 @@
 package SendMailPost.View;
 
-import SendMailPost.Model.SelectActiveOrganizations;
-import SendMailPost.Model.SelectAll;
+import SendMailPost.Controller.SelectAll;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -15,7 +14,7 @@ public class FormSend extends JFrame {
     private JSplitPane splitPane;
     private LeftPanel leftPanal;
     private RightPanel rightPanel;
-    private JTextArea textArea;
+    //private JTextArea textArea;
 
     public static class DataForForm {
         static SelectAll selectAll= new SelectAll();
@@ -59,7 +58,7 @@ public class FormSend extends JFrame {
         splitPane.setTopComponent(leftPanal);
         splitPane.setRightComponent(rightPanel);
         add(splitPane);
-        textArea = new JTextArea("Произвольный текст");
+        //textArea = new JTextArea("Произвольный текст");
 
     }
 

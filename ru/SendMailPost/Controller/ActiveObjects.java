@@ -1,6 +1,8 @@
-package SendMailPost.Model;
+package SendMailPost.Controller;
 
 import SendMailPost.Controller.Select;
+import SendMailPost.Model.ModelData;
+import SendMailPost.Model.ModelSend;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
