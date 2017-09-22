@@ -32,15 +32,33 @@ public class Server {
 
     private static class Handler extends Thread {
         private Socket socket;
+
         public Handler(Socket socket) {
             this.socket = socket;
         }
 
         private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
+//            while (true) {
+//                connection.send(new Message(MessageType.USER_NAME));
+//                Message message = connection.receive();
+//                if (message.getType().equals(MessageType.USER_NAME)) {
+//                    if (message.getData().isEmpty() || message.getData() == null || connectionMap.containsKey(message.getData())) {
+//                        if (!connectionMap.containsKey(message.getData())) {
+//                            connectionMap.put(message.getData(), connection);
+//                            connection.send(new Message(MessageType.NAME_ACCEPTED));
+//                            return message.getData();
+//                        }
+//                    continue;
+//                    }
+//                continue;
+//                }
+//            }
             while (true) {
                 connection.send(new Message(MessageType.NAME_REQUEST));
                 Message answer = connection.receive();
+
                 if (answer.getType() == MessageType.USER_NAME) {
+
                     if (!answer.getData().isEmpty()) {
                         if (!connectionMap.containsKey(answer.getData())) {
                             connectionMap.put(answer.getData(), connection);
@@ -52,55 +70,16 @@ public class Server {
             }
         }
 
-        private void sendListOfUsers(Connection connection, String userName) throws IOException {
-            Message mes;
-            for (Map.Entry<String, Connection> entry : connectionMap.entrySet()){
-                if (entry.getKey()!= userName){
-                    mes = new Message(MessageType.USER_ADDED, entry.getKey());
-                    connection.send(mes);
+        public static void sendBroadcastMessage(Message message) {
+            try {
+                for (Connection connection : connectionMap.values()) {
+                    connection.send(message);
                 }
+            } catch (IOException e) {
+                e.getMessage();
+                ConsoleHelper.writeMessage("Error");
             }
-        }
-        private void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException{
 
-            while (true){
-                Message message = connection.receive();
-                if (message.getType() == MessageType.TEXT){
-                    sendBroadcastMessage(new Message(MessageType.TEXT, userName + ": " + message.getData()));
-                }
-                else {
-                    ConsoleHelper.writeMessage("Error");
-                }
-            }
-        }
-
-        public void run(){
-            ConsoleHelper.writeMessage(socket.getRemoteSocketAddress()+"");
-            String userName = null;
-            try (Connection connection = new Connection(socket)){
-                userName = serverHandshake(connection);
-                sendBroadcastMessage(new Message(MessageType.USER_ADDED, userName));
-                sendListOfUsers(connection, userName);
-                serverMainLoop(connection, userName);
-            } catch (IOException | ClassNotFoundException e) {
-                ConsoleHelper.writeMessage(String.valueOf(e));
-            }
-            finally {
-                if (userName != null){
-                    connectionMap.remove(userName);
-                    sendBroadcastMessage(new Message(MessageType.USER_REMOVED, userName));}
-            }
-            ConsoleHelper.writeMessage("Closed connection to a remote socket address: ");
         }
     }
-        public static void sendBroadcastMessage(Message message) {
-                try {
-                    for (Connection connection : connectionMap.values()) {
-                        connection.send(message);
-                    }
-                } catch (IOException e) {
-                    e.getMessage();
-                    ConsoleHelper.writeMessage("Error");
-                }
-        }
 }
