@@ -61,6 +61,32 @@ public class Client {
                         }
             }
         }
+
+        public void run(){
+            try {
+                String inetAdres = getServerAddress();
+                int port = getServerPort();
+                Socket socket = new Socket(inetAdres, port);
+                connection = new Connection(socket);
+                clientHandshake();
+                clientMainLoop();
+            } catch (IOException | ClassNotFoundException e) {
+                notifyConnectionStatusChanged(false);
+            }
+        }
+
+        protected String getUserName() {
+            ConsoleHelper.writeMessage("Enter your Name for access to chat room:");
+            return ConsoleHelper.readString();
+        }
+
+        protected SocketThread getSocketThread() {
+            return new SocketThread();
+        }
+
+        protected boolean shouldSendTextFromConsole() {
+            return true;
+        }
     }
     protected String getServerAddress() throws IOException {
         ConsoleHelper.writeMessage("Введите адрес сервера.");
