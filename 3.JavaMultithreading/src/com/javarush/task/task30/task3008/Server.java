@@ -73,6 +73,25 @@ public class Server {
                 }
             }
         }
+
+        public void run(){
+            ConsoleHelper.writeMessage(socket.getRemoteSocketAddress()+"");
+            String userName = null;
+            try (Connection connection = new Connection(socket)){
+                userName = serverHandshake(connection);
+                sendBroadcastMessage(new Message(MessageType.USER_ADDED, userName));
+                sendListOfUsers(connection, userName);
+                serverMainLoop(connection, userName);
+            } catch (IOException | ClassNotFoundException e) {
+                ConsoleHelper.writeMessage(String.valueOf(e));
+            }
+            finally {
+                if (userName != null){
+                    connectionMap.remove(userName);
+                    sendBroadcastMessage(new Message(MessageType.USER_REMOVED, userName));}
+            }
+            ConsoleHelper.writeMessage("Closed connection to a remote socket address: ");
+        }
     }
         public static void sendBroadcastMessage(Message message) {
                 try {
