@@ -16,7 +16,51 @@ public class Client {
     private volatile boolean clientConnected = false;
 
     public class SocketThread extends Thread{
+        protected void processIncomingMessage(String message){
+            ConsoleHelper.writeMessage(message);
+        }
+        protected void informAboutAddingNewUser(String userName){
+            ConsoleHelper.writeMessage("Участник с именем "+ userName + " присоединился к чату.");
+        }
+        protected void informAboutDeletingNewUser(String userName){
+            ConsoleHelper.writeMessage("Участник с именем "+ userName + " покинул чат.");
+        }
+        protected void notifyConnectionStatusChanged(boolean clientConnected){
+            synchronized (Client.this){
+                Client.this.clientConnected = clientConnected;
+                Client.this.notify();}
+        }
 
+        protected void clientHandshake() throws IOException, ClassNotFoundException{
+            Message message;
+            while (!clientConnected){
+                 message = connection.receive();
+                if (message.getType() == MessageType.NAME_REQUEST) {
+                    connection.send(new Message(MessageType.USER_NAME, getUserName()));
+                }
+                else if (message.getType() == MessageType.NAME_ACCEPTED){
+                    notifyConnectionStatusChanged(true);
+                }
+                else {
+                    throw new IOException("Unexpected MessageType");
+                 }
+            }
+        }
+
+        protected void clientMainLoop() throws IOException, ClassNotFoundException{
+            Message mes;
+            while (true){
+                mes = connection.receive();
+                if (mes.getType() == MessageType.TEXT){
+                    processIncomingMessage(mes.getData());
+                }else if (mes.getType() == MessageType.USER_ADDED){
+                    informAboutAddingNewUser(mes.getData());
+                }else if (mes.getType() == MessageType.USER_REMOVED){
+                    informAboutDeletingNewUser(mes.getData());
+                }else {throw new IOException("Unexpected MessageType");
+                        }
+            }
+        }
     }
     protected String getServerAddress() throws IOException {
         ConsoleHelper.writeMessage("Введите адрес сервера.");
