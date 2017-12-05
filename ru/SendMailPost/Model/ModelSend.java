@@ -1,5 +1,7 @@
 package SendMailPost.Model;
 
+import SendMailPost.Controller.ConnectFirebird;
+
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;

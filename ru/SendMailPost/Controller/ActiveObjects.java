@@ -1,14 +1,16 @@
 package SendMailPost.Controller;
 
-import SendMailPost.Controller.Select;
 import SendMailPost.Model.ModelData;
 import SendMailPost.Model.ModelSend;
+import SendMailPost.Model.Select;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+/**
+ * Класс парсит данные из класса Select и выводит на экран все активные обькты.
+ */
 public class ActiveObjects implements ModelData {
     private Object [][] selectData ;
     private String [] columnNameSelectData;

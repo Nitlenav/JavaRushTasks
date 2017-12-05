@@ -8,23 +8,38 @@ public class FirstColumnTableModel extends AbstractTableModel {
 
     public FirstColumnTableModel() {
     }
+
     public FirstColumnTableModel(ModelData modelData) {
         data = modelData.getSelectData();
         columnName = modelData.getColumnNameSelectData();
     }
+
     // Методы
-    public int getRowCount(){return data.length;}
-    public int getColumnCount(){return data[0].length;}
-    public Object getValueAt(int row, int col){return data[row][col];}
-    public String getColumnName(int column) {return columnName[column];}
-
-    public Object[][] getData() {
-        return data;
+    public int getRowCount() {
+        return data.length;
     }
 
-    public String[] getColumnName() {
-        return columnName;
+    public int getColumnCount() {
+        if (data != null)
+            return data[0].length;
+        else return 0;
     }
+
+    public Object getValueAt(int row, int col) {
+        return data[row][col];
+    }
+
+    public String getColumnName(int column) {
+        return columnName[column];
+    }
+
+//    public Object[][] getData() {
+//        return data;
+//    }
+//
+//    public String[] getColumnName() {
+//        return columnName;
+//    }
 
 
     private Object[][] data;

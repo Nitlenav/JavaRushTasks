@@ -1,8 +1,8 @@
-package SendMailPost.Controller;
+package SendMailPost.Model;
 
 public class Select {
 
-    private String selectAll = "Select CODE, FIRM_NAME, TODATE, OBJECT, NAME_OBJECTS, EMAIL, BANC from DATA_FOR_SEND";
+    private String selectAll = "Select first 10 CODE, FIRM_NAME, TODATE, OBJECT, NAME_OBJECTS, EMAIL, BANC from DATA_FOR_SEND WHERE TODATE = '31.12.2999'";
     private String selectOrganizations = "Select CODE, FIRM_NAME, EMAIL from DATA_FOR_SEND where BANC = 'ОАО Банк ВТБ' and OBJECT != 998";
     //private String selectPhizic = "Select CODE, FIRM_NAME, EMAIL from DATA_FOR_SEND where BANC = 'Сбербанк' and OBJECT != 998";
     private String selectActiveObject = "Select OBJECT, NAME_OBJECTS, EMAIL from DATA_FOR_SEND where OBJECT != 998";

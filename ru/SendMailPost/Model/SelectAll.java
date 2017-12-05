@@ -1,14 +1,9 @@
-package SendMailPost.Controller;
-
-import SendMailPost.Controller.Select;
-import SendMailPost.Model.ModelData;
-import SendMailPost.Model.ModelSend;
+package SendMailPost.Model;
 
 import java.sql.SQLException;
 
 public class SelectAll implements ModelData
 {
-
     private Object selectData [][];
     private String [] columnNameSelectData;
     @Override
@@ -17,7 +12,7 @@ public class SelectAll implements ModelData
     }
 
     @Override
-    public Object[][] getSelectData(){
+    public  Object[][] getSelectData(){
         try {
             Object allData [][] = new ModelSend(new Select().getSelectAll()).getQueryData();
             selectData = new Object[allData.length][3];

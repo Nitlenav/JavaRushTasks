@@ -1,6 +1,9 @@
 package SendMailPost.View;
 
 import SendMailPost.Controller.*;
+import SendMailPost.Model.SelectActiveOrganizations;
+import SendMailPost.Model.SelectActivePeoples;
+import SendMailPost.Model.SelectAll;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
@@ -12,11 +15,16 @@ import java.awt.event.ActionListener;
 public class LeftPanel extends JPanel {
 
     private GridBagConstraints containLeft;
-    private JTable table;
+    private static JTable table;
     private JScrollPane scrollPane;
     //JTextArea textArea;
     private TextAndArea textArea;
     private JComboBox box;
+    private SelectAll selectAll = new SelectAll();
+    private SelectActiveOrganizations selectActiveOrganizations = new SelectActiveOrganizations();
+    private SelectActivePeoples selectActivePeoples = new SelectActivePeoples();
+    private ActiveObjects activeObjects = new ActiveObjects();
+    private CyclicDeliveryLetters cyclicDeliveryLetters =  CyclicDeliveryLetters.getCyclicDeliveryLetters();
     //ModelData modelData;
     private String [] selector = {"Все", "Юридические лица", "Физические лица","Действующие обьекты"};
 
@@ -34,18 +42,6 @@ public class LeftPanel extends JPanel {
 
         //textArea = new JTextArea("Произвольный текст");
         textArea = new TextAndArea();
-        textArea.addCaretListener(new CaretListener() {
-            @Override
-            public void caretUpdate(CaretEvent e) {
-                String [] word = textArea.getText().split("\\W+");
-                if (word.length > 0){
-                    //TableModel model = new LeftPanel().getTable().getModel();
-                    for (String s : word){
-
-                    }
-                }
-            }
-        });
         containLeft.fill = GridBagConstraints.HORIZONTAL;
         containLeft.weightx = 0.5;
         containLeft.gridx = 1;
@@ -53,21 +49,26 @@ public class LeftPanel extends JPanel {
         add(textArea, containLeft);
 
         box = new JComboBox(selector);
-        box.addActionListener(new ActionListener() {
+        cyclicDeliveryLetters.setData(selectAll);
+        box.addActionListener(new ActionListener() { //По нажатию на комбобокс выводим данные.
             @Override
             public void actionPerformed(ActionEvent e) {
                 switch(box.getSelectedItem().toString()){
                     case "Все":
-                        table.setModel(new FirstColumnTableModel(new SelectAll()));
+                        table.setModel(new FirstColumnTableModel(selectAll));
+                        cyclicDeliveryLetters.setData(selectAll);
                         break;
                     case "Юридические лица":
-                        table.setModel(new FirstColumnTableModel(new SelectActiveOrganizations()));
+                        table.setModel(new FirstColumnTableModel(selectActiveOrganizations));
+                        cyclicDeliveryLetters.setData(selectActiveOrganizations);
                         break;
                     case "Физические лица":
-                        table.setModel(new FirstColumnTableModel(new SelectActivePeoples()));
+                        table.setModel(new FirstColumnTableModel(selectActivePeoples));
+                        cyclicDeliveryLetters.setData(selectActivePeoples);
                         break;
                     case "Действующие обьекты":
-                        table.setModel(new FirstColumnTableModel(new ActiveObjects()));
+                        table.setModel(new FirstColumnTableModel(activeObjects));
+                        cyclicDeliveryLetters.setData(activeObjects);
                         break;
                 }
             }

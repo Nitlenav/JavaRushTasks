@@ -1,25 +1,21 @@
 package SendMailPost.View;
 
-import SendMailPost.Controller.SelectAll;
+import SendMailPost.Controller.CyclicDeliveryLetters;
+import SendMailPost.Model.SelectAll;
 
 import javax.swing.*;
 import java.sql.SQLException;
 
-public class FormSend extends JFrame {
+public class FormSend extends JFrame {  //Форма которая собирает все панели.
 
-
-    private JMenuBar mainMenu;
-    private JMenu menu, newMenu;
-    private JMenuItem itemMenu;
     private JSplitPane splitPane;
     private LeftPanel leftPanal;
     private RightPanel rightPanel;
-    //private JTextArea textArea;
 
     public static class DataForForm {
-        static SelectAll selectAll= new SelectAll();
-         static String[] columnName = selectAll.getColumnNameSelectData();
-         static Object[][] data= selectAll.getSelectData();
+        static SelectAll selectAll = new SelectAll();
+        static String[] columnName = selectAll.getColumnNameSelectData();
+        static Object[][] data = selectAll.getSelectData();
 
         public void setColumnName(String[] columnName) {
             this.columnName = columnName;
@@ -29,27 +25,16 @@ public class FormSend extends JFrame {
             this.data = data;
         }
     }
-    public FormSend() throws SQLException {
 
+    public FormSend() throws SQLException, InterruptedException {
         super("Учебный проект");
         //setLayout(gbl);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null);
 
-        mainMenu = new JMenuBar();
-        menu = new JMenu("File");
-        newMenu = new JMenu("New File");
         leftPanal = new LeftPanel(DataForForm.data, DataForForm.columnName);
         rightPanel = new RightPanel(DataForForm.data, DataForForm.columnName);
-        newMenu.add(new JMenuItem("add"));
-        menu.add(newMenu);
-        itemMenu = new JMenuItem("Close");
-        menu.add(itemMenu);
-        menu.add(new JMenuItem("Open"));
-        menu.add(new JMenuItem("Close All"));
-        mainMenu.add(menu);
-        setJMenuBar(mainMenu);
+        setJMenuBar(new MainMenu());
 
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         //splitPane.setOneTouchExpandable(true);
@@ -58,15 +43,25 @@ public class FormSend extends JFrame {
         splitPane.setTopComponent(leftPanal);
         splitPane.setRightComponent(rightPanel);
         add(splitPane);
-        //textArea = new JTextArea("Произвольный текст");
 
     }
 
-    public static void main(String[] args) throws SQLException {
-        FormSend formSend = new FormSend();
+    public static void main(String[] args) throws SQLException, InterruptedException {
+        JFrame formSend = new FormSend();
+        formSend.setDefaultCloseOperation(EXIT_ON_CLOSE);
         formSend.pack();
         formSend.setVisible(true);
-
+//        for(int i = 0 ; i < 10; i++) {
+//            SwingUtilities.invokeLater(new Runnable() {
+//                @Override
+//                public void run() {
+//                    int numVal = CyclicDeliveryLetters.getCyclicDeliveryLetters().getValProgressBar();
+//                    rightPanel.getProgressImplementation().setValue(numVal);
+//                }
+//            });
+//        }
+        //RightPanel.progressImplementation.setMaximum(CyclicDeliveryLetters.getCyclicDeliveryLetters().getData().length);
+        //RightPanel.progressImplementation.setValue(CyclicDeliveryLetters.getCyclicDeliveryLetters().getMinValProgressBar());
+        //System.out.println(CyclicDeliveryLetters.getCyclicDeliveryLetters().getvalProgressBar());
     }
-
 }
