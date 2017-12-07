@@ -1,23 +1,32 @@
 package GameThread;
 
-import java.util.ArrayDeque;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.locks.Lock;
 
 public class ThreadWrite extends Thread {
-    ArrayDeque<Long> queue;
+    private BlockingQueue<Long> queue;
+    private Lock lock;
+    long min = 10;
+    long max = 89;
 
-    public ThreadWrite(ArrayDeque<Long> queue) {
+    public ThreadWrite(BlockingQueue<Long> queue, Lock lock) {
         this.queue = queue;
+        this.lock = lock;
     }
 
     @Override
     public void run() {
-        long min = 10;
-        long max = 89;
+        lock.lock();
         for (int i = 0; i < 1000; i++) {
             long num = (long) (Math.random() * max) + min;
-            queue.push(num);
-            System.out.println(queue.size() + " ");
+            try {
+                queue.put(num);
+                //System.out.println(queue.size());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                lock.unlock();
+            }
         }
+        lock.unlock();
     }
 }

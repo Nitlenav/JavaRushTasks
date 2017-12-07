@@ -1,14 +1,17 @@
 package GameThread;
 
-import java.util.ArrayDeque;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
 
-public class ThreadRead extends Thread  {
-    ArrayDeque<Long> queue;
-    long l = 0;
+public class ThreadRead extends Thread {
+    private BlockingQueue<Long> queue;
+    private Lock lock;
+    private long l = 0;
 
-    public ThreadRead(ArrayDeque<Long> queue) {
+    public ThreadRead(BlockingQueue<Long> queue, Lock lock) {
         this.queue = queue;
+        this.lock = lock;
     }
 
     public long getL() {
@@ -21,8 +24,18 @@ public class ThreadRead extends Thread  {
 
     @Override
     public void run() {
-        while (queue.peek() != null) {
-            setL(queue.pop());
+
+        System.out.println(Thread.currentThread().getName() + " - " + queue.size());
+//        synchronized (queue) {
+        try {
+            if (lock.tryLock(1, TimeUnit.SECONDS)) {
+                long num;
+                while ((num = queue.take()) != 0) {
+                    setL(num);
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
